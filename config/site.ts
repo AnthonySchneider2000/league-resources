@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
+  name: "League Resources",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "A web-app that compares resources between waves, jungle camps, and towers in League of Legends.",
   mainNav: [
     {
       title: "Home",
