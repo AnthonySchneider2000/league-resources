@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import * as constants from "@/lib/constants"
 
 interface UserInputProps {
   value: number
@@ -28,6 +28,8 @@ function UserInput({ value, setValue, id, label }: UserInputProps) {
 }
 
 export default function IndexPage() {
+  
+  //count
   const [botWaves, setBotWaves] = useState(0)
   const [midWaves, setMidWaves] = useState(0)
   const [topWaves, setTopWaves] = useState(0)
@@ -35,6 +37,29 @@ export default function IndexPage() {
   const [towers, setTowers] = useState(0)
   const [towerPlating, setTowerPlating] = useState(0)
   const [kills, setKills] = useState(0)
+  //gold
+  const [botWavesGold, setBotWavesGold] = useState(0)
+  const [midWavesGold, setMidWavesGold] = useState(0)
+  const [topWavesGold, setTopWavesGold] = useState(0)
+  const [jungleCampsGold, setJungleCampsGold] = useState(0)
+  const [towersGold, setTowersGold] = useState(0)
+  const [towerPlatingGold, setTowerPlatingGold] = useState(0)
+  const [killsGold, setKillsGold] = useState(0)
+
+  //experience
+  const [botWavesExperience, setBotWavesExperience] = useState(0)
+  const [midWavesExperience, setMidWavesExperience] = useState(0)
+  const [topWavesExperience, setTopWavesExperience] = useState(0)
+  const [jungleCampsExperience, setJungleCampsExperience] = useState(0)
+  const [towersExperience, setTowersExperience] = useState(0)
+  const [towerPlatingExperience, setTowerPlatingExperience] = useState(0)
+  const [killsExperience, setKillsExperience] = useState(0)
+
+  //total
+  const [gold, setGold] = useState(0)
+  const [experience, setExperience] = useState(0)
+
+  // function 
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
