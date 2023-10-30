@@ -132,3 +132,45 @@ export const jungleItem = {
     "gold": 20,
     "experience": 15,
 }
+
+
+export const firstBlood = {
+    "gold": 400,
+    "experience": 200,
+}
+
+export const firstKill = {
+    "gold": 300,
+    "experience": 200,
+}
+
+export const secondKill = {
+    "gold": 274,
+    "experience": 150,
+}
+
+export const thirdKill = {
+    "gold": 220,
+    "experience": 100,
+}
+
+export const fourthKill = {
+    "gold": 176,
+    "experience": 50,
+}
+
+export const fifthKill = {
+    "gold": 140,
+    "experience": 25,
+}
+
+export const sixthKill = {
+    "gold": 112,
+    "experience": 10,
+}
+
+export const seventhKill = {
+    "gold": 100,
+    "experience": 5,
+}
+
