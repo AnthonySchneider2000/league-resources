@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -34,16 +34,16 @@ export default function IndexPage() {
   const [midWaves, setMidWaves] = useState(0)
   const [topWaves, setTopWaves] = useState(0)
   const [jungleCamps, setJungleCamps] = useState(0)
-  const [towers, setTowers] = useState(0)
-  const [towerPlating, setTowerPlating] = useState(0)
+  const [turrets, setTurrets] = useState(0)
+  const [turretPlating, setTurretPlating] = useState(0)
   const [kills, setKills] = useState(0)
   //gold
   const [botWavesGold, setBotWavesGold] = useState(0)
   const [midWavesGold, setMidWavesGold] = useState(0)
   const [topWavesGold, setTopWavesGold] = useState(0)
   const [jungleCampsGold, setJungleCampsGold] = useState(0)
-  const [towersGold, setTowersGold] = useState(0)
-  const [towerPlatingGold, setTowerPlatingGold] = useState(0)
+  const [turretsGold, setTurretsGold] = useState(0)
+  const [turretPlatingGold, setTurretPlatingGold] = useState(0)
   const [killsGold, setKillsGold] = useState(0)
 
   //experience
@@ -51,15 +51,61 @@ export default function IndexPage() {
   const [midWavesExperience, setMidWavesExperience] = useState(0)
   const [topWavesExperience, setTopWavesExperience] = useState(0)
   const [jungleCampsExperience, setJungleCampsExperience] = useState(0)
-  const [towersExperience, setTowersExperience] = useState(0)
-  const [towerPlatingExperience, setTowerPlatingExperience] = useState(0)
+  const [turretsExperience, setTurretsExperience] = useState(0)
+  const [turretPlatingExperience, setTurretPlatingExperience] = useState(0)
   const [killsExperience, setKillsExperience] = useState(0)
 
   //total
   const [gold, setGold] = useState(0)
   const [experience, setExperience] = useState(0)
 
-  // function 
+  // functions 
+  function calculateJungleCamps() {
+  }
+
+  function calculateTurrets() {
+  }
+
+  function calculateKills() {
+  }
+  function calculateResources() {
+    console.log("calculating resources");
+    let botMinionGold = botWaves * (constants.melee.gold + constants.caster.gold);
+    let botCannonGold = Math.floor(botWaves / 3) * constants.botCannon.gold; //only 1 cannon per 3 waves
+    setBotWavesGold(botMinionGold + botCannonGold);
+    let botMinionExperience = botWaves * (constants.melee.experience + constants.caster.experience);
+    let botCannonExperience = Math.floor(botWaves / 3) * constants.botCannon.experience;
+    setBotWavesExperience(botMinionExperience + botCannonExperience);
+
+
+    let midMinionGold = midWaves * (constants.melee.gold + constants.caster.gold);
+    let midCannonGold = Math.floor(midWaves / 3) * constants.midCannon.gold;
+    setMidWavesGold(midMinionGold + midCannonGold);
+    let midMinionExperience = midWaves * (constants.melee.experience + constants.caster.experience);
+    let midCannonExperience = Math.floor(midWaves / 3) * constants.midCannon.experience;
+    setMidWavesExperience(midMinionExperience + midCannonExperience);
+
+    let topMinionGold = topWaves * (constants.melee.gold + constants.caster.gold);
+    let topCannonGold = Math.floor(topWaves / 3) * constants.topCannon.gold;
+    setTopWavesGold(topMinionGold + topCannonGold);
+    let topMinionExperience = topWaves * (constants.melee.experience + constants.caster.experience);
+    let topCannonExperience = Math.floor(topWaves / 3) * constants.topCannon.experience;
+    setTopWavesExperience(topMinionExperience + topCannonExperience);
+
+    calculateJungleCamps();
+
+    calculateTurrets();
+
+    calculateKills();
+
+    setGold(botWavesGold + midWavesGold + topWavesGold + jungleCampsGold + turretsGold + turretPlatingGold + killsGold);
+    setExperience(botWavesExperience + midWavesExperience + topWavesExperience + jungleCampsExperience + turretsExperience + turretPlatingExperience + killsExperience);
+
+  }
+
+  useEffect(() => {
+    calculateResources();
+  }, [botWaves, midWaves, topWaves, jungleCamps, turrets, turretPlating, kills])
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -100,16 +146,16 @@ export default function IndexPage() {
             label="Jungle Camps"
           />
           <UserInput
-            value={towers}
-            setValue={setTowers}
-            id="towers"
-            label="Towers"
+            value={turrets}
+            setValue={setTurrets}
+            id="turrets"
+            label="Turrets"
           />
           <UserInput
-            value={towerPlating}
-            setValue={setTowerPlating}
-            id="tower-plating"
-            label="Tower Plating"
+            value={turretPlating}
+            setValue={setTurretPlating}
+            id="turret-plating"
+            label="Turret Plating"
           />
           <UserInput
             value={kills}
@@ -124,15 +170,7 @@ export default function IndexPage() {
             <Input
               id="total-gold"
               type="number"
-              value={
-                botWaves * 105 +
-                midWaves * 105 +
-                topWaves * 105 +
-                jungleCamps * 100 +
-                towers * 300 +
-                towerPlating * 160 +
-                kills * 300
-              }
+              value={gold}
               readOnly
             />
           </div>
@@ -141,15 +179,7 @@ export default function IndexPage() {
             <Input
               id="total-experience"
               type="number"
-              value={
-                botWaves * 105 +
-                midWaves * 105 +
-                topWaves * 105 +
-                jungleCamps * 100 +
-                towers * 300 +
-                towerPlating * 160 +
-                kills * 300
-              }
+              value={experience}
               readOnly
             />
           </div>
