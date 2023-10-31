@@ -367,7 +367,7 @@ export default function IndexPage() {
           Resource Calculator
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground">
-          Compare the resources from waves, camps, and objectives.
+          Compare resources gained from laning, jungling, and splitpushing
         </p>
       </div>
       {/* section grid 2 cols */}
