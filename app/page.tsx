@@ -479,7 +479,7 @@ export default function IndexPage() {
           <CardTitle>Saved</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Nothing saved yet.</p>
+          <p className="mb-4">Nothing saved yet.</p>
           <Separator />
         </CardContent>
       </Card>
