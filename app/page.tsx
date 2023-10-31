@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 
 interface UserInputProps {
   value: number
@@ -416,6 +417,7 @@ export default function IndexPage() {
           />
         </div>
         <div className="flex flex-col gap-4">
+          <Separator className="md:hidden" />
           <div className="flex flex-col gap-2">
             <Label htmlFor="total-gold">Total Gold</Label>
             <Input id="total-gold" type="number" value={gold} readOnly />
@@ -432,15 +434,17 @@ export default function IndexPage() {
         </div>
       </section>
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Button variant="secondary">Save Values</Button>
+        <Button variant="secondary">Save Data</Button>
         <Button variant="secondary">Reset</Button>
       </section>
+      <Separator />
       <Card>
         <CardHeader>
           <CardTitle>Saved</CardTitle>
         </CardHeader>
         <CardContent>
           <p>Nothing saved yet.</p>
+          <Separator />
         </CardContent>
       </Card>
     </section>
