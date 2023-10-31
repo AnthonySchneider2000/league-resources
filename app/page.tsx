@@ -453,7 +453,7 @@ export default function IndexPage() {
           />
         </div>
         <div className="flex flex-col gap-4">
-          <Separator className="md:hidden" />
+          <Separator className="my-6 md:hidden" />
           <div className="flex flex-col gap-2">
             <Label htmlFor="total-gold">Total Gold</Label>
             <Input id="total-gold" type="number" value={gold} readOnly />
