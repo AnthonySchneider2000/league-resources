@@ -535,7 +535,7 @@ export default function IndexPage() {
                 saved.map((item: any, index: any) => (
                   <Card key={index}>
                     <CardHeader
-                      className="hover:cursor-pointer hover:bg-accent"
+                      className="rounded-t-md hover:cursor-pointer hover:bg-accent"
                       title="Click to delete"
                       onClick={() => deleteItem(index)}
                     >
