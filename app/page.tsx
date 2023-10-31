@@ -171,13 +171,13 @@ export default function IndexPage() {
     let jungleCampsExperience = 0
     while (jungleCamps > 0) {
       switch (jungleCamps % 6) {
-        case 0:
+        case 1:
           // red buff
           jungleCampsGold += constants.redBuff.gold
           jungleCampsExperience += constants.redBuff.experience
           jungleCamps--
           break
-        case 1:
+        case 2:
           // krugs
           jungleCampsGold +=
             constants.bigKrug.gold +
@@ -189,7 +189,7 @@ export default function IndexPage() {
             constants.smallKrug.experience * 5
           jungleCamps--
           break
-        case 2:
+        case 3:
           // raptors
           jungleCampsGold +=
             constants.bigRaptor.gold + constants.smallRaptor.gold * 5
@@ -198,7 +198,7 @@ export default function IndexPage() {
             constants.smallRaptor.experience * 5
           jungleCamps--
           break
-        case 3:
+        case 4:
           // wolves
           jungleCampsGold +=
             constants.bigWolf.gold + constants.smallWolf.gold * 2
@@ -206,13 +206,13 @@ export default function IndexPage() {
             constants.bigWolf.experience + constants.smallWolf.experience * 2
           jungleCamps--
           break
-        case 4:
+        case 5:
           // blue buff
           jungleCampsGold += constants.blueBuff.gold
           jungleCampsExperience += constants.blueBuff.experience
           jungleCamps--
           break
-        case 5:
+        case 6:
           // gromp
           jungleCampsGold += constants.gromp.gold
           jungleCampsExperience += constants.gromp.experience
@@ -245,15 +245,126 @@ export default function IndexPage() {
   }
 
   function handleTurretsChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTurrets(parseInt(e.target.value))
+    let turrets = parseInt(e.target.value)
+    setTurrets(turrets)
+    let turretsGold = 0
+    while (turrets > 0) {
+      switch (turrets % 3) {
+        case 1:
+          // outer turret
+          turretsGold += constants.outerTurret.gold
+          turrets--
+          break
+        case 2:
+          // inner turret
+          turretsGold += constants.innerTurret.gold
+          turrets--
+          break
+        case 3:
+          // inhib turret
+          turretsGold += constants.inhibTurret.gold
+          turrets--
+          break
+        default:
+          break
+      }
+    }
+    setTurretsGold(turretsGold)
+    setGold(
+      botWavesGold +
+        midWavesGold +
+        topWavesGold +
+        jungleCampsGold +
+        turretsGold +
+        turretPlatingGold +
+        killsGold
+    )
+
+
   }
 
   function handleTurretPlatingChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTurretPlating(parseInt(e.target.value))
+    const turretPlating = parseInt(e.target.value)
+    setTurretPlating(turretPlating)
+    const turretPlatingGold = turretPlating * constants.plating.gold
+    setTurretPlatingGold(turretPlatingGold)
+    setGold(
+      botWavesGold +
+        midWavesGold +
+        topWavesGold +
+        jungleCampsGold +
+        turretsGold +
+        turretPlatingGold +
+        killsGold
+    )
+
   }
 
   function handleKillsChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setKills(parseInt(e.target.value))
+    let kills = parseInt(e.target.value)
+    setKills(kills)
+    let killsGold = 0
+    let killsExperience = 0
+    while(kills > 0) {
+      switch (kills) {
+      case 1:
+        killsGold += constants.firstKill.gold
+        killsExperience += constants.firstKill.experience
+        kills--
+        break
+      case 2:
+        killsGold += constants.secondKill.gold
+        killsExperience += constants.secondKill.experience
+        kills--
+        break
+      case 3:
+        killsGold += constants.thirdKill.gold
+        killsExperience += constants.thirdKill.experience
+        kills--
+        break
+      case 4:
+        killsGold += constants.fourthKill.gold
+        killsExperience += constants.fourthKill.experience
+        kills--
+        break
+      case 5:
+        killsGold += constants.fifthKill.gold
+        killsExperience += constants.fifthKill.experience
+        kills--
+        break
+      case 6:
+        killsGold += constants.sixthKill.gold
+        killsExperience += constants.sixthKill.experience
+        kills--
+        break
+      default:
+        killsGold += constants.seventhKill.gold
+        killsExperience += constants.seventhKill.experience
+        kills--
+        break
+      }
+    }
+    setKillsGold(killsGold)
+    setKillsExperience(killsExperience)
+    setGold(
+      botWavesGold +
+        midWavesGold +
+        topWavesGold +
+        jungleCampsGold +
+        turretsGold +
+        turretPlatingGold +
+        killsGold
+    )
+    setExperience(
+      killsExperience +
+        botWavesExperience +
+        midWavesExperience +
+        topWavesExperience +
+        jungleCampsExperience +
+        turretsExperience +
+        turretPlatingExperience
+    )
+    
   }
 
   return (
