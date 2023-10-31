@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -8,7 +8,7 @@ import * as constants from "@/lib/constants"
 
 interface UserInputProps {
   value: number
-  setValue: (value: number) => void
+  setValue: (e: React.ChangeEvent<HTMLInputElement>) => void
   id: string
   label: string
 }
@@ -21,7 +21,7 @@ function UserInput({ value, setValue, id, label }: UserInputProps) {
         id={id}
         type="number"
         value={value}
-        onChange={(e) => setValue(parseInt(e.target.value))}
+        onChange={setValue}
       />
     </div>
   )
@@ -60,6 +60,78 @@ export default function IndexPage() {
   const [experience, setExperience] = useState(0)
 
   // functions 
+
+  function testOutput() {
+    console.log("test");
+    console.log(botWaves);
+    console.log(botWavesGold);
+    console.log(gold);
+  }
+
+  function handleBotWavesChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const botWaves = parseInt(e.target.value);
+    console.log("botWaves",botWaves);
+    setBotWaves(botWaves);
+    let botMinionGold = botWaves * 3 * (constants.melee.gold + constants.caster.gold);
+    let botCannonGold = Math.floor(botWaves / 3) * constants.botCannon.gold; //only 1 cannon per 3 waves
+    const botWavesGold = botMinionGold + botCannonGold;
+    setBotWavesGold(botWavesGold);
+    let botMinionExperience = botWaves * 3 * (constants.melee.experience + constants.caster.experience);
+    let botCannonExperience = Math.floor(botWaves / 3) * constants.botCannon.experience;
+    const botExperience = botMinionExperience + botCannonExperience;
+    setBotWavesExperience(botExperience);
+    setGold(botWavesGold + midWavesGold + topWavesGold + jungleCampsGold + turretsGold + turretPlatingGold + killsGold);
+    console.log("gold",gold);
+    setExperience(botExperience + midWavesExperience + topWavesExperience + jungleCampsExperience + turretsExperience + turretPlatingExperience + killsExperience);
+  }
+
+  function handleMidWavesChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const midWaves = parseInt(e.target.value);
+    setMidWaves(midWaves);
+    let midMinionGold = midWaves * 3 * (constants.melee.gold + constants.caster.gold);
+    let midCannonGold = Math.floor(midWaves / 3) * constants.midCannon.gold; //only 1 cannon per 3 waves
+    const midWavesGold = midMinionGold + midCannonGold;
+    setMidWavesGold(midWavesGold);
+    let midMinionExperience = midWaves * 3 * (constants.melee.experience + constants.caster.experience);
+    let midCannonExperience = Math.floor(midWaves / 3) * constants.midCannon.experience;
+    const midExperience = midMinionExperience + midCannonExperience;
+    setMidWavesExperience(midExperience);
+    setGold(botWavesGold + midWavesGold + topWavesGold + jungleCampsGold + turretsGold + turretPlatingGold + killsGold);
+    setExperience(midExperience + botWavesExperience + topWavesExperience + jungleCampsExperience + turretsExperience + turretPlatingExperience + killsExperience);
+  }
+
+  function handleTopWavesChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const topWaves = parseInt(e.target.value);
+    setTopWaves(topWaves);
+    let topMinionGold = topWaves * 3 * (constants.melee.gold + constants.caster.gold);
+    let topCannonGold = Math.floor(topWaves / 3) * constants.topCannon.gold; //only 1 cannon per 3 waves
+    const topWavesGold = topMinionGold + topCannonGold;
+    setTopWavesGold(topWavesGold);
+    let topMinionExperience = topWaves * 3 * (constants.melee.experience + constants.caster.experience);
+    let topCannonExperience = Math.floor(topWaves / 3) * constants.topCannon.experience;
+    const topExperience = topMinionExperience + topCannonExperience;
+    setTopWavesExperience(topExperience);
+    setGold(botWavesGold + midWavesGold + topWavesGold + jungleCampsGold + turretsGold + turretPlatingGold + killsGold);
+    setExperience(topExperience + botWavesExperience + midWavesExperience + jungleCampsExperience + turretsExperience + turretPlatingExperience + killsExperience);
+  }
+
+  function handleJungleCampsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setJungleCamps(parseInt(e.target.value));
+  }
+
+  function handleTurretsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTurrets(parseInt(e.target.value));
+  }
+
+  function handleTurretPlatingChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTurretPlating(parseInt(e.target.value));
+  }
+
+  function handleKillsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setKills(parseInt(e.target.value));
+  }
+
+
   function calculateJungleCamps() {
   }
 
@@ -68,44 +140,6 @@ export default function IndexPage() {
 
   function calculateKills() {
   }
-  function calculateResources() {
-    console.log("calculating resources");
-    let botMinionGold = botWaves * (constants.melee.gold + constants.caster.gold);
-    let botCannonGold = Math.floor(botWaves / 3) * constants.botCannon.gold; //only 1 cannon per 3 waves
-    setBotWavesGold(botMinionGold + botCannonGold);
-    let botMinionExperience = botWaves * (constants.melee.experience + constants.caster.experience);
-    let botCannonExperience = Math.floor(botWaves / 3) * constants.botCannon.experience;
-    setBotWavesExperience(botMinionExperience + botCannonExperience);
-
-
-    let midMinionGold = midWaves * (constants.melee.gold + constants.caster.gold);
-    let midCannonGold = Math.floor(midWaves / 3) * constants.midCannon.gold;
-    setMidWavesGold(midMinionGold + midCannonGold);
-    let midMinionExperience = midWaves * (constants.melee.experience + constants.caster.experience);
-    let midCannonExperience = Math.floor(midWaves / 3) * constants.midCannon.experience;
-    setMidWavesExperience(midMinionExperience + midCannonExperience);
-
-    let topMinionGold = topWaves * (constants.melee.gold + constants.caster.gold);
-    let topCannonGold = Math.floor(topWaves / 3) * constants.topCannon.gold;
-    setTopWavesGold(topMinionGold + topCannonGold);
-    let topMinionExperience = topWaves * (constants.melee.experience + constants.caster.experience);
-    let topCannonExperience = Math.floor(topWaves / 3) * constants.topCannon.experience;
-    setTopWavesExperience(topMinionExperience + topCannonExperience);
-
-    calculateJungleCamps();
-
-    calculateTurrets();
-
-    calculateKills();
-
-    setGold(botWavesGold + midWavesGold + topWavesGold + jungleCampsGold + turretsGold + turretPlatingGold + killsGold);
-    setExperience(botWavesExperience + midWavesExperience + topWavesExperience + jungleCampsExperience + turretsExperience + turretPlatingExperience + killsExperience);
-
-  }
-
-  useEffect(() => {
-    calculateResources();
-  }, [botWaves, midWaves, topWaves, jungleCamps, turrets, turretPlating, kills])
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -123,43 +157,43 @@ export default function IndexPage() {
         <div className="flex flex-col gap-4">
           <UserInput
             value={botWaves}
-            setValue={setBotWaves}
+            setValue={handleBotWavesChange}
             id="bot-waves"
             label="Bot Waves"
           />
           <UserInput
             value={midWaves}
-            setValue={setMidWaves}
+            setValue= {handleMidWavesChange}
             id="mid-waves"
             label="Mid Waves"
           />
           <UserInput
             value={topWaves}
-            setValue={setTopWaves}
+            setValue= {handleTopWavesChange}
             id="top-waves"
             label="Top Waves"
           />
           <UserInput
             value={jungleCamps}
-            setValue={setJungleCamps}
+            setValue= {handleJungleCampsChange}
             id="jungle-camps"
             label="Jungle Camps"
           />
           <UserInput
             value={turrets}
-            setValue={setTurrets}
+            setValue= {handleTurretsChange}
             id="turrets"
             label="Turrets"
           />
           <UserInput
             value={turretPlating}
-            setValue={setTurretPlating}
+            setValue= {handleTurretPlatingChange}
             id="turret-plating"
             label="Turret Plating"
           />
           <UserInput
             value={kills}
-            setValue={setKills}
+            setValue= {handleKillsChange}
             id="kills"
             label="Kills"
           />
@@ -182,6 +216,10 @@ export default function IndexPage() {
               value={experience}
               readOnly
             />
+            <button
+              className="btn btn-primary"
+              onClick={testOutput}
+            >Test</button>
           </div>
         </div>
       </section>
