@@ -3,6 +3,8 @@
 import { useState } from "react"
 
 import * as constants from "@/lib/constants"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -54,13 +56,6 @@ export default function IndexPage() {
   const [experience, setExperience] = useState(0)
 
   // functions
-
-  function testOutput() {
-    console.log("test")
-    console.log(botWaves)
-    console.log(botWavesGold)
-    console.log(gold)
-  }
 
   function handleBotWavesChange(e: React.ChangeEvent<HTMLInputElement>) {
     const botWaves = parseInt(e.target.value)
@@ -279,8 +274,6 @@ export default function IndexPage() {
         turretPlatingGold +
         killsGold
     )
-
-
   }
 
   function handleTurretPlatingChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -297,7 +290,6 @@ export default function IndexPage() {
         turretPlatingGold +
         killsGold
     )
-
   }
 
   function handleKillsChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -305,43 +297,43 @@ export default function IndexPage() {
     setKills(kills)
     let killsGold = 0
     let killsExperience = 0
-    while(kills > 0) {
+    while (kills > 0) {
       switch (kills) {
-      case 1:
-        killsGold += constants.firstKill.gold
-        killsExperience += constants.firstKill.experience
-        kills--
-        break
-      case 2:
-        killsGold += constants.secondKill.gold
-        killsExperience += constants.secondKill.experience
-        kills--
-        break
-      case 3:
-        killsGold += constants.thirdKill.gold
-        killsExperience += constants.thirdKill.experience
-        kills--
-        break
-      case 4:
-        killsGold += constants.fourthKill.gold
-        killsExperience += constants.fourthKill.experience
-        kills--
-        break
-      case 5:
-        killsGold += constants.fifthKill.gold
-        killsExperience += constants.fifthKill.experience
-        kills--
-        break
-      case 6:
-        killsGold += constants.sixthKill.gold
-        killsExperience += constants.sixthKill.experience
-        kills--
-        break
-      default:
-        killsGold += constants.seventhKill.gold
-        killsExperience += constants.seventhKill.experience
-        kills--
-        break
+        case 1:
+          killsGold += constants.firstKill.gold
+          killsExperience += constants.firstKill.experience
+          kills--
+          break
+        case 2:
+          killsGold += constants.secondKill.gold
+          killsExperience += constants.secondKill.experience
+          kills--
+          break
+        case 3:
+          killsGold += constants.thirdKill.gold
+          killsExperience += constants.thirdKill.experience
+          kills--
+          break
+        case 4:
+          killsGold += constants.fourthKill.gold
+          killsExperience += constants.fourthKill.experience
+          kills--
+          break
+        case 5:
+          killsGold += constants.fifthKill.gold
+          killsExperience += constants.fifthKill.experience
+          kills--
+          break
+        case 6:
+          killsGold += constants.sixthKill.gold
+          killsExperience += constants.sixthKill.experience
+          kills--
+          break
+        default:
+          killsGold += constants.seventhKill.gold
+          killsExperience += constants.seventhKill.experience
+          kills--
+          break
       }
     }
     setKillsGold(killsGold)
@@ -364,7 +356,6 @@ export default function IndexPage() {
         turretsExperience +
         turretPlatingExperience
     )
-    
   }
 
   return (
@@ -437,13 +428,21 @@ export default function IndexPage() {
               value={experience}
               readOnly
             />
-            {/* <button
-              className="btn btn-primary"
-              onClick={testOutput}
-            >Test</button> */}
           </div>
         </div>
       </section>
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Button variant="secondary">Save Values</Button>
+        <Button variant="secondary">Reset</Button>
+      </section>
+      <Card>
+        <CardHeader>
+          <CardTitle>Saved</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Nothing saved yet.</p>
+        </CardContent>
+      </Card>
     </section>
   )
 }
