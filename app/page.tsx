@@ -165,8 +165,8 @@ export default function IndexPage() {
 
   function handleJungleCampsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let jungleCamps = parseInt(e.target.value)
-    if(jungleCamps > 1000){
-      return;
+    if (jungleCamps > 1000) {
+      return
     }
     setJungleCamps(jungleCamps)
     let jungleCampsGold = 0
@@ -248,8 +248,8 @@ export default function IndexPage() {
 
   function handleTurretsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let turrets = parseInt(e.target.value)
-    if(turrets > 11){
-      return;
+    if (turrets > 11) {
+      return
     }
     setTurrets(turrets)
     let turretsGold = 0
@@ -304,8 +304,8 @@ export default function IndexPage() {
 
   function handleKillsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let kills = parseInt(e.target.value)
-    if(kills > 1000){
-      return;
+    if (kills > 1000) {
+      return
     }
     setKills(kills)
     let killsGold = 0
@@ -396,7 +396,7 @@ export default function IndexPage() {
     setGold(0)
     setExperience(0)
   }
-  
+
   function saveData() {
     let data: any = {
       botWaves,
@@ -426,8 +426,8 @@ export default function IndexPage() {
     // remove 0 values
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {
-        const element = data[key];
-        if(element === 0){
+        const element = data[key]
+        if (element === 0) {
           delete data[key]
         }
       }
@@ -439,7 +439,6 @@ export default function IndexPage() {
     const newSaved = saved.filter((item: any, i: number) => i !== index)
     setSaved(newSaved)
   }
-
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -516,41 +515,53 @@ export default function IndexPage() {
         </div>
       </section>
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Button variant="secondary" onClick={saveData}>Save Data</Button>
-        <Button variant="secondary" onClick={resetData} >Reset</Button>
+        <Button variant="secondary" onClick={saveData}>
+          Save Data
+        </Button>
+        <Button variant="secondary" onClick={resetData}>
+          Reset
+        </Button>
       </section>
-      <Separator />
-      <Card>
-        <CardHeader>
-          <CardTitle>Saved</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-        {saved.length > 0 ? (
-      saved.map((item:any, index:any) => (
-        <Card key={index}>
-          <CardHeader className="hover:cursor-pointer hover:bg-accent" title="Click to delete" onClick={() => deleteItem(index)}>
-            <CardTitle>Item {index + 1}</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            {Object.keys(item).map(key => {
-              const value = item[key];
-              return value !== 0 ? (
-                <div key={key}>
-                  <p>
-                    {key}: {value}
-                  </p>
-                  <Separator />
-                </div>
-              ) : null;
-            })}
-          </CardContent>
-        </Card>
-      ))
-    ) : (
-      <p className="mb-4">Nothing saved yet.</p>
-    )}
-        </CardContent>
-      </Card>
+      {/* if saved has items */}
+      {saved.length > 0 && (
+        <>
+          <Separator />
+          <Card>
+            <CardHeader>
+              <CardTitle>Saved</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4">
+              {saved.length > 0 ? (
+                saved.map((item: any, index: any) => (
+                  <Card key={index}>
+                    <CardHeader
+                      className="hover:cursor-pointer hover:bg-accent"
+                      title="Click to delete"
+                      onClick={() => deleteItem(index)}
+                    >
+                      <CardTitle>Item {index + 1}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-2">
+                      {Object.keys(item).map((key) => {
+                        const value = item[key]
+                        return value !== 0 ? (
+                          <div key={key}>
+                            <p>
+                              {key}: {value}
+                            </p>
+                          </div>
+                        ) : null
+                      })}
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <p className="mb-4">Nothing saved yet.</p>
+              )}
+            </CardContent>
+          </Card>
+        </>
+      )}
     </section>
   )
 }
