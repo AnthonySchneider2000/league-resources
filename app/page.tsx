@@ -56,6 +56,9 @@ export default function IndexPage() {
   const [gold, setGold] = useState(0)
   const [experience, setExperience] = useState(0)
 
+  //saved
+  const [saved, setSaved] = useState<any>([])
+
   // functions
 
   function handleBotWavesChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -393,6 +396,45 @@ export default function IndexPage() {
     setGold(0)
     setExperience(0)
   }
+  
+  function saveData() {
+    let data: any = {
+      botWaves,
+      midWaves,
+      topWaves,
+      jungleCamps,
+      turrets,
+      turretPlating,
+      kills,
+      botWavesGold,
+      midWavesGold,
+      topWavesGold,
+      jungleCampsGold,
+      turretsGold,
+      turretPlatingGold,
+      killsGold,
+      botWavesExperience,
+      midWavesExperience,
+      topWavesExperience,
+      jungleCampsExperience,
+      turretsExperience,
+      turretPlatingExperience,
+      killsExperience,
+      gold,
+      experience,
+    }
+    // remove 0 values
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        const element = data[key];
+        if(element === 0){
+          delete data[key]
+        }
+      }
+    }
+    setSaved([...saved, data])
+    console.log(saved)
+  }
 
 
   return (
@@ -470,7 +512,7 @@ export default function IndexPage() {
         </div>
       </section>
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Button variant="secondary">Save Data</Button>
+        <Button variant="secondary" onClick={saveData}>Save Data</Button>
         <Button variant="secondary" onClick={resetData} >Reset</Button>
       </section>
       <Separator />
@@ -478,9 +520,31 @@ export default function IndexPage() {
         <CardHeader>
           <CardTitle>Saved</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="mb-4">Nothing saved yet.</p>
-          <Separator />
+        <CardContent className="flex flex-col gap-4">
+        {saved.length > 0 ? (
+      saved.map((item:any, index:any) => (
+        <Card key={index}>
+          <CardHeader>
+            <CardTitle>Item {index + 1}</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">
+            {Object.keys(item).map(key => {
+              const value = item[key];
+              return value !== 0 ? (
+                <div key={key}>
+                  <p>
+                    {key}: {value}
+                  </p>
+                  <Separator />
+                </div>
+              ) : null;
+            })}
+          </CardContent>
+        </Card>
+      ))
+    ) : (
+      <p className="mb-4">Nothing saved yet.</p>
+    )}
         </CardContent>
       </Card>
     </section>
