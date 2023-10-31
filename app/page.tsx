@@ -433,7 +433,11 @@ export default function IndexPage() {
       }
     }
     setSaved([...saved, data])
-    console.log(saved)
+  }
+
+  function deleteItem(index: number) {
+    const newSaved = saved.filter((item: any, i: number) => i !== index)
+    setSaved(newSaved)
   }
 
 
@@ -524,7 +528,7 @@ export default function IndexPage() {
         {saved.length > 0 ? (
       saved.map((item:any, index:any) => (
         <Card key={index}>
-          <CardHeader>
+          <CardHeader className="hover:cursor-pointer hover:bg-accent" title="Click to delete" onClick={() => deleteItem(index)}>
             <CardTitle>Item {index + 1}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
