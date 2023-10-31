@@ -162,6 +162,9 @@ export default function IndexPage() {
 
   function handleJungleCampsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let jungleCamps = parseInt(e.target.value)
+    if(jungleCamps > 1000){
+      return;
+    }
     setJungleCamps(jungleCamps)
     let jungleCampsGold = 0
     let jungleCampsExperience = 0
@@ -208,7 +211,7 @@ export default function IndexPage() {
           jungleCampsExperience += constants.blueBuff.experience
           jungleCamps--
           break
-        case 6:
+        case 0:
           // gromp
           jungleCampsGold += constants.gromp.gold
           jungleCampsExperience += constants.gromp.experience
@@ -242,6 +245,9 @@ export default function IndexPage() {
 
   function handleTurretsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let turrets = parseInt(e.target.value)
+    if(turrets > 11){
+      return;
+    }
     setTurrets(turrets)
     let turretsGold = 0
     while (turrets > 0) {
@@ -256,7 +262,7 @@ export default function IndexPage() {
           turretsGold += constants.innerTurret.gold
           turrets--
           break
-        case 3:
+        case 0:
           // inhib turret
           turretsGold += constants.inhibTurret.gold
           turrets--
@@ -295,6 +301,9 @@ export default function IndexPage() {
 
   function handleKillsChange(e: React.ChangeEvent<HTMLInputElement>) {
     let kills = parseInt(e.target.value)
+    if(kills > 1000){
+      return;
+    }
     setKills(kills)
     let killsGold = 0
     let killsExperience = 0
@@ -358,6 +367,33 @@ export default function IndexPage() {
         turretPlatingExperience
     )
   }
+
+  function resetData() {
+    setBotWaves(0)
+    setMidWaves(0)
+    setTopWaves(0)
+    setJungleCamps(0)
+    setTurrets(0)
+    setTurretPlating(0)
+    setKills(0)
+    setBotWavesGold(0)
+    setMidWavesGold(0)
+    setTopWavesGold(0)
+    setJungleCampsGold(0)
+    setTurretsGold(0)
+    setTurretPlatingGold(0)
+    setKillsGold(0)
+    setBotWavesExperience(0)
+    setMidWavesExperience(0)
+    setTopWavesExperience(0)
+    setJungleCampsExperience(0)
+    setTurretsExperience(0)
+    setTurretPlatingExperience(0)
+    setKillsExperience(0)
+    setGold(0)
+    setExperience(0)
+  }
+
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -435,7 +471,7 @@ export default function IndexPage() {
       </section>
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Button variant="secondary">Save Data</Button>
-        <Button variant="secondary">Reset</Button>
+        <Button variant="secondary" onClick={resetData} >Reset</Button>
       </section>
       <Separator />
       <Card>
